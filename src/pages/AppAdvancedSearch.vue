@@ -59,6 +59,7 @@
 
       <hr>
     </div> 
+    <AppMap/>
     <div class="container">
       <div class="row">
         <div class="col-3" v-for="apartment in apartmentsResearch"> 
@@ -74,11 +75,13 @@
   import _ from 'lodash'
   import AppApartmentCard from '../components/AppApartmentCard.vue'
   import AppApartmentCardSponsored from '../components/AppApartmentCardSponsored.vue'
+  import AppMap from '../components/AppMap.vue'
 
   export default {
     components:{
       AppApartmentCard,
-      AppApartmentCardSponsored
+      AppApartmentCardSponsored,
+      AppMap
     },
     data(){
       return{
