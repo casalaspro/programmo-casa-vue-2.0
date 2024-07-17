@@ -1,5 +1,5 @@
 <template>
-    <div class="card h-100" v-if="apartment.sponsorships.length > 0">
+    <div class="card h-100">
       <!-- mostriamo gli appartamenti in evidenza -->
       <RouterLink :to="{ name: 'apartment.show', params: {id: apartment.id} }">
       <div class="card-body my_card-body">
