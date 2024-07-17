@@ -1,0 +1,55 @@
+.page-apartments{
+  padding-top: 70px;
+
+  .carousel{
+    display: flex;
+    overflow-x: auto;
+
+    &>*{
+      padding: 5px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  .suggestions{
+    padding: 10px;
+    border: 1px solid rgba(8, 38, 38, 0.185);
+    border-top: none;
+    border-bottom-left-radius: 20px ;
+    border-bottom-right-radius: 20px ;
+    
+    .suggestion {
+      cursor: pointer;
+      padding: 1px;
+    
+      &:hover{
+        background-color: rgba(38, 38, 38, 0.048);
+      }
+    }
+  }
+
+  .my-apartments{
+    transition: transform 5s;
+
+      .col:hover{
+        
+        transform: scale(1.02);
+        z-index: 1;
+      }
+  }
+
+  .my-page{
+    width: 20px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
