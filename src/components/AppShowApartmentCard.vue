@@ -21,7 +21,7 @@
                 
                 <div class="flex-column">
                   <div class="col-auto  text-center ">
-                  <img class="icon-service" src="/public/img/info/info_rooms.svg" alt="">
+                  <img class="icon-service" src="../assets/img/info/info_rooms.svg" alt="">
                   </div>
                   <div class="col-auto  my-name-icon text-center">Stanze</div>
                 </div>
@@ -38,7 +38,7 @@
                 
                 <div class="flex-column">
                   <div class="col-auto  text-center ">
-                  <img class="icon-service" src="/public/img/info/info_bedrooms.svg" alt="">
+                  <img class="icon-service" src="../assets/img/info/info_bedrooms.svg" alt="">
                   </div>
                   <div class="col-auto  my-name-icon text-center">Camere Da Letto</div>
                 </div>
@@ -55,7 +55,7 @@
                 
                 <div class="flex-column">
                   <div class="col-auto  text-center ">
-                  <img class="icon-service" src="/public/img/info/info_bathrooms.svg" alt="">
+                  <img class="icon-service" src="../assets/img/info/info_bathrooms.svg" alt="">
                   </div>
                   <div class="col-auto  my-name-icon text-center">Bagni</div>
                 </div>
@@ -72,7 +72,7 @@
                 
                 <div class="flex-column">
                   <div class="col-auto text-center ">
-                  <img class="icon-service" src="/public/img/info/info_m2.svg" alt="">
+                  <img class="icon-service" src="../assets/img/info/info_m2.svg" alt="">
                   </div>
                   <div class="col-auto  my-name-icon text-center">M.Q.</div>
                 </div>
@@ -88,7 +88,7 @@
             
             <div class="flex-column">
               <div class="col-auto my-col-auto text-center ">
-              <img class="icon-service" src="/public/img/servizi/Risorsa 1.svg" alt="">
+              <img class="icon-service" src="../assets/img/servizi/Risorsa 1.svg" alt="">
               </div>
               <div class="col-auto my-col-auto my-name-icon text-center">Bagni</div>
             </div>
@@ -101,7 +101,7 @@
             
             <div class="flex-column justify-content-center align-items-center align-self-center ">
               <div class="col-auto my-col-auto text-center">
-              <img class="icon-service" src="/public/img/servizi/Risorsa 2.svg" alt="">
+              <img class="icon-service" src="../assets/img/servizi/Risorsa 2.svg" alt="">
               </div>
               <div class="col-auto my-col-auto my-name-icon">Camere</div>
             </div>
@@ -114,7 +114,7 @@
             
             <div class="flex-column justify-content-center align-items-center align-self-center">
               <div class="col-auto my-col-auto text-center">
-              <img class="icon-service" src="/public/img/servizi/Risorsa 4.svg" alt="">
+              <img class="icon-service" src="../assets/img/servizi/Risorsa 4.svg" alt="">
               </div>
               <div class="col-auto my-col-auto my-name-icon text-center">M.Q.</div>
             </div>
@@ -130,7 +130,7 @@
           <div v-for="service in apartment.services" class="col-6 col-sm-2 my-col-auto p-2">
             <div class="flex-column">
               <div class="col-auto my-col-auto text-center ">
-              <img class="icon-service" :src="'/public/img/servizi/Risorsa '+ service.id +'.svg'" alt="">
+              <img class="icon-service" :src="'../assets/img/servizi/Risorsa '+ service.id +'.svg'" alt="">
               </div>
               <div class="col-auto my-col-auto my-name-icon text-center">{{ service.name }}</div>
             </div>
