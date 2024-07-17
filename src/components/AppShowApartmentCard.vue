@@ -14,130 +14,38 @@
         </p>
       </div>
       <section class="pt-2">
-        <div class="row align-items-center">
-          <div class="col-6 col-sm-2 col-md-auto">
-            <div class="row flex-nowrap">
-              <div class="col-auto ">
-                
-                <div class="flex-column">
-                  <div class="col-auto  text-center ">
-                  <img class="icon-service" src="../assets/img/info/info_rooms.svg" alt="">
+        <div class="container">
+          <div class="row align-items-center">
+            <div v-for="detail in details" class="col-6 col-sm-2 col-md-auto">
+              <div class="row flex-nowrap align-items-center">
+                <div class="col-auto my-col-auto">
+                  <div class="flex-column">
+                    <div class="col-auto  text-center ">
+                    <img class="icon-service" :src="'/public/img/info/' + detail.pathImg" alt="">
+                    </div>
+                    <div class="col-auto  my-name-icon text-center">{{ detail.name }}</div>
                   </div>
-                  <div class="col-auto  my-name-icon text-center">Stanze</div>
                 </div>
-    
-              </div>
-              <div class="col-auto ">
-                {{apartment.rooms}}
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-2 col-md-auto">
-            <div class="row flex-nowrap">
-              <div class="col-auto ">
-                
-                <div class="flex-column">
-                  <div class="col-auto  text-center ">
-                  <img class="icon-service" src="../assets/img/info/info_bedrooms.svg" alt="">
-                  </div>
-                  <div class="col-auto  my-name-icon text-center">Camere Da Letto</div>
+                <div class="col-auto">
+                  {{detail.value}}
                 </div>
-    
-              </div>
-              <div class="col-auto ">
-                {{apartment.beds}}
               </div>
             </div>
-          </div>
-          <div class="col-6 col-sm-2 col-md-auto">
-            <div class="row flex-nowrap">
-              <div class="col-auto ">
-                
-                <div class="flex-column">
-                  <div class="col-auto  text-center ">
-                  <img class="icon-service" src="../assets/img/info/info_bathrooms.svg" alt="">
-                  </div>
-                  <div class="col-auto  my-name-icon text-center">Bagni</div>
-                </div>
-    
-              </div>
-              <div class="col-auto">
-                {{apartment.bathrooms}}
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-2">
-            <div class="row flex-nowrap">
-              <div class="col-auto">
-                
-                <div class="flex-column">
-                  <div class="col-auto text-center ">
-                  <img class="icon-service" src="../assets/img/info/info_m2.svg" alt="">
-                  </div>
-                  <div class="col-auto  my-name-icon text-center">M.Q.</div>
-                </div>
-    
-              </div>
-              <div class="col-auto">
-                {{apartment.sqr_meters}}
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="col-auto my-col-auto">
-            
-            <div class="flex-column">
-              <div class="col-auto my-col-auto text-center ">
-              <img class="icon-service" src="../assets/img/servizi/Risorsa 1.svg" alt="">
-              </div>
-              <div class="col-auto my-col-auto my-name-icon text-center">Bagni</div>
-            </div>
-
-          </div>
-          <div v-if="apartment.bathrooms" class="col-auto my-col-auto pe-2 ">
-            {{apartment.bathrooms}}
-          </div>
-          <div class="col-auto my-col-auto">
-            
-            <div class="flex-column justify-content-center align-items-center align-self-center ">
-              <div class="col-auto my-col-auto text-center">
-              <img class="icon-service" src="../assets/img/servizi/Risorsa 2.svg" alt="">
-              </div>
-              <div class="col-auto my-col-auto my-name-icon">Camere</div>
-            </div>
-
-          </div>
-          <div class="col-auto my-col-auto pe-2">
-            {{apartment.beds}}
-          </div>
-          <div class="col-auto my-col-auto">
-            
-            <div class="flex-column justify-content-center align-items-center align-self-center">
-              <div class="col-auto my-col-auto text-center">
-              <img class="icon-service" src="../assets/img/servizi/Risorsa 4.svg" alt="">
-              </div>
-              <div class="col-auto my-col-auto my-name-icon text-center">M.Q.</div>
-            </div>
-
-          </div>
-          <div class="col-auto my-col-auto">
-            {{apartment.sqr_meters}}
-          </div>-->
-        </div> 
+          </div> 
+        </div>
       </section>
       <section class="my-services pt-3">
-        <div class="row align-items-center ">
-          <div v-for="service in apartment.services" class="col-6 col-sm-2 my-col-auto p-2">
-            <div class="flex-column">
-              <div class="col-auto my-col-auto text-center ">
-              <img class="icon-service" :src="'../assets/img/servizi/Risorsa '+ service.id +'.svg'" alt="">
+        <div class="container">
+          <div class="row align-items-center ">
+            <div v-for="service in apartment.services" class="col-6 col-sm-2 my-col-auto">
+              <div class="flex-column">
+                <div class="col-auto my-col-auto text-center ">
+                <img class="icon-service" :src="'/public/img/servizi/Risorsa '+ service.id +'.svg'" alt="">
+                </div>
+                <div class="col-auto my-col-auto my-name-icon text-center">{{ service.name }}</div>
               </div>
-              <div class="col-auto my-col-auto my-name-icon text-center">{{ service.name }}</div>
             </div>
           </div>
-          <!-- <div v-for="service in apartment.services" class="col-auto my-col-auto">
-            {{ service.name }}
-          </div> -->
         </div>
       </section>
     </div>
@@ -149,6 +57,30 @@
     props:{
       apartment:{
         required: true,
+      }
+    },
+    data(){
+      return{
+        dataApartment:[],
+        details: [{
+          name: 'Stanze',
+          pathImg: 'info_rooms.svg',
+          value: this.apartment.rooms
+        }, {
+          name: 'Camere Da Letto',
+          pathImg: 'info_bedrooms.svg',
+          value: this.apartment.beds
+        },
+        {
+          name: 'Bagni',
+          pathImg: 'info_bathrooms.svg',
+          value: this.apartment.bathrooms
+        },
+        {
+          name: 'M.Q.',
+          pathImg: 'info_m2.svg',
+          value: this.apartment.sqr_meters
+        }]
       }
     }
   }
