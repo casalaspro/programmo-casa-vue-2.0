@@ -78,6 +78,10 @@
             //   .addTo(map)
           // });
 
+          marker.getElement().addEventListener('click', ()=>{
+            this.$router.push(`apartments/${element.id}`);
+          })
+
           let Popup = null;
           marker.getElement().addEventListener('mouseenter', () => {
             Popup = new tt.Popup({ offset: popupOffsets, className: 'my-class' })
@@ -108,8 +112,14 @@
     // background-color: black;
     background-size: cover;
     background-repeat: no-repeat;
-    border-radius: 20px;
-    width: 35px;
-    height: 35px;
+    border-radius: 0.5px;
+    width: 50px;
+
+    & img{
+      border-radius: 20px;
+      width: 100%;
+    }
   }
+
+  
 </style>
