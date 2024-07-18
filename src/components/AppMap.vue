@@ -49,14 +49,45 @@
           zoom: 10,
         });
 
+        var markerHeight = 10, markerRadius = 10, linearOffset = 25;
+
+        var popupOffsets = {
+          'top': [0, 0],
+            'top-left': [0,0],
+            'top-right': [0,0],
+            'bottom': [0, -markerHeight],
+            'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+            'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+            'left': [markerRadius, (markerHeight - markerRadius) * -1],
+            'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+          };
+
         this.apartmentsResearch.forEach(element => {
           const lonLat = [element.longitude, element.latitude];
+
           console.log(lonLat)
-          map.on('load', () => {
-            new tt.Marker().setLngLat(lonLat).addTo(map);
-          
+
+          const marker = new tt.Marker().setLngLat(lonLat).addTo(map);
+          // map.on('load', () => {
+            // new tt.Popup({offset: popupOffsets, className: 'my-class'}).setLngLat(lonLat)
+            //   .setHTML(element.title_apartment)
+            //   .addTo(map)
+          // });
+
+          let Popup = null;
+          marker.getElement().addEventListener('mouseenter', () => {
+            Popup = new tt.Popup({ offset: popupOffsets, className: 'my-class' })
+              .setLngLat(lonLat)
+              .setHTML(element.title_apartment)
+              .addTo(map);
+          });
+
+          marker.getElement().addEventListener('mouseleave', () => {
+            // Rimuovi il popup quando il mouse esce dal marcatore
+            Popup.remove();
           });
         });
+
       }
     }
   }
