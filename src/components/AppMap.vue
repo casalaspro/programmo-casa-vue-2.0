@@ -79,7 +79,7 @@
           // });
 
           marker.getElement().addEventListener('click', ()=>{
-            this.$router.push(`apartments/${element.id}`);
+            this.$router.push({ name: 'apartment.show', params: { id: element.id } });
           })
 
           let Popup = null;
