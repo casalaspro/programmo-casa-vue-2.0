@@ -33,11 +33,11 @@
     
       <!-- row gy-3 gx-3 row-cols-1 row-cols-md-2 row-cols-lg-3 -->
       <div class="carousel" ref="carousel">
-        <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-for="apartment in apartments">
-          <div v-if="apartment.sponsorships.length > 0" class="card h-100">
-            <AppApartmentCardSponsored :apartment="apartment"/>
+        <template v-for="apartment in apartments">
+          <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-if="apartment.sponsorships.length > 0">
+          <AppApartmentCardSponsored :apartment="apartment"/>
           </div>
-        </div>
+        </template>
       </div>
     </section>
     <div class="container">
