@@ -59,7 +59,7 @@
 
       <hr>
     </div> 
-    <AppMap/>
+    <AppMap :apartmentsResearch="apartmentsResearch"/>
     <div class="container">
       <div class="row">
         <div class="col-3" v-for="apartment in apartmentsResearch"> 
