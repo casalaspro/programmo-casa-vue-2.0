@@ -293,6 +293,7 @@
 </script>
 
 <style lang="scss" scoped>
+
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: black;
  /* Colore desiderato */ cursor: pointer; }
  /* Per Firefox */ 

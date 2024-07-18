@@ -108,33 +108,7 @@
 </script>
 
 <style lang="scss">
-  #map{
-    width: 100%;
-    height: 300px;
-  }
-
-  .marker{
-    // background-image: url('../assets/logo_programmo_casa_grande.png');
-    // background-color: black;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: 4px solid white;
-    width: 50px;
-    border-radius: 10px;
-
-    img{
-      width: 100%;
-      border-radius: 10px;
-    }
-  }
-
-  .my-class{
-    img{
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-    }
-  }
+  @use '../style/partials/map.scss';
 
   
 </style>
