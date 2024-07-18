@@ -12,6 +12,9 @@
         <p>
           {{apartment.description}}
         </p>
+        <p>
+          {{ apartment.complete_address }}
+        </p>
       </div>
       <section class="pt-2">
         <div class="container">

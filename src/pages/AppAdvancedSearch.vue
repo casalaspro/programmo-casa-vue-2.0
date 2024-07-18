@@ -8,24 +8,35 @@
         <div class="my-errors text-danger" v-if="errorSearch !== ''">
           {{ errorSearch }}
         </div>
-        <form class="d-flex" role="search" @submit.prevent="advancedSearch"> 
+        <form class="" role="search" @submit.prevent="advancedSearch"> 
           
           <input v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+          <ul v-if="zone" class="suggestions list-unstyled">
+            <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
+              {{ suggestion.address.freeformAddress }}
+            </li>
+          </ul>
           <!-- @keyup="fetchSuggestions"  -->
           <!-- <RouterLink class="nav-link" :to="{ name: 'advanced-search' }"> -->
+          <label for="complete_address" class="form-label">Inserisci la distanza in Chilometri</label>
+          <input v-model.number="distance" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
+          <label for="customRange1" class="form-label">Inserisci la distanza in Chilometri</label>
+          <input v-model.number="distance" step="5" type="range" class="form-range my-input-address" id="customRange1">
+
+          <label for="number_of_rooms" class="form-lable">Inserisci la quantità di stanze</label>
+          <input v-model.number="rooms" min="1" type="number" class="form-control" id="number_of_rooms" name="number_of_rooms" placeholder="inserisci il numero di stanze">
+
+          <label for="number_of_beds" class="form-lable">Inserisci il numero di camere da letto</label>
+          <input v-model.number="beds" min="1" type="number" class="form-control" id="number_of_beds" name="number_of_beds" placeholder="inserisci il numero di camere da letto">
+          
+
+          <div class="services pt-3">
+            <button :class="('btn btn-outline-dark me-1 mb-1 service-'+service.id)" @click="toggleService(service.id), buttonToggle(service.id) " v-for="(service, index) in services">{{ service.name }}</button>
+            <!-- <button @click="advancedSearch">Aggiorna</button> -->
+          </div>
           <button class="btn btn-outline-dark" type="submit">Cerca</button>
           <!-- </RouterLink> -->
         </form>
-        <ul v-if="zone" class="suggestions list-unstyled">
-          <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
-            {{ suggestion.address.freeformAddress }}
-          </li>
-        </ul>
-      </div>
-  
-      <div class="services">
-        <button :class="('btn btn-outline-dark me-1 mb-1 service-'+service.id)" @click="toggleService(service.id), buttonToggle(service.id) " v-for="(service, index) in services">{{ service.name }}</button>
-        <!-- <button @click="advancedSearch">Aggiorna</button> -->
       </div>
     </div>
 
@@ -35,16 +46,16 @@
         <input v-model.number="latitude" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
         <label for="complete_address" class="form-label">Inserisci la longitudine</label>
         <input v-model.number="longitude" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite"> -->
-        <label for="complete_address" class="form-label">Inserisci la distanza in Chilometri</label>
-        <input v-model.number="distance" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
+        <!-- <label for="complete_address" class="form-label">Inserisci la distanza in Chilometri</label>
+        <input v-model.number="distance" @input="advancedSearch" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
         <label for="customRange1" class="form-label">Inserisci la distanza in Chilometri</label>
-        <input v-model.number="distance" @input="calculateLimitsLatLon" step="5" type="range" class="form-range my-input-address" id="customRange1">
+        <input v-model.number="distance" @input="advancedSearch" step="5" type="range" class="form-range my-input-address" id="customRange1">
 
         <label for="number_of_rooms" class="form-lable">Inserisci la quantità di stanze</label>
         <input v-model.number="rooms" min="1" type="number" class="form-control" id="number_of_rooms" name="number_of_rooms" placeholder="inserisci il numero di stanze">
 
         <label for="number_of_beds" class="form-lable">Inserisci il numero di camere da letto</label>
-        <input v-model.number="beds" min="1" type="number" class="form-control" id="number_of_beds" name="number_of_beds" placeholder="inserisci il numero di camere da letto">
+        <input v-model.number="beds" min="1" type="number" class="form-control" id="number_of_beds" name="number_of_beds" placeholder="inserisci il numero di camere da letto"> -->
 
       </form>
       <div class="search-bar_solutions">
@@ -109,6 +120,11 @@
         }
       }
     },
+    // watch:{
+    //   distance(newDistance, oldDistance){
+    //     this.advancedSearch()
+    //   }
+    // },
     methods:{
       // this function takes latitude, longitude, distance in kilometers and calculates the bounds
       calculateLimitsLatLon(){
@@ -178,6 +194,7 @@
         // let json=JSON.stringify(data);
         // let post_data={json_data:json}
         // axios.post('/url',post_data)
+        this.apartmentsResearch = []
 
         if (this.latitude !== ''){
           this.errorSearch = ''
