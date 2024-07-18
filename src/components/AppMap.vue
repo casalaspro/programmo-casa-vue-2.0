@@ -66,8 +66,12 @@
           const lonLat = [element.longitude, element.latitude];
 
           console.log(lonLat)
+          
+          let customMarker = document.createElement("div")
+          customMarker.innerHTML = `<img src="http://127.0.0.1:8000/storage/${element.img_apartment}">`
+          customMarker.classList.add("marker");
 
-          const marker = new tt.Marker().setLngLat(lonLat).addTo(map);
+          const marker = new tt.Marker({element: customMarker}).setLngLat(lonLat).addTo(map);
           // map.on('load', () => {
             // new tt.Popup({offset: popupOffsets, className: 'my-class'}).setLngLat(lonLat)
             //   .setHTML(element.title_apartment)
@@ -93,9 +97,19 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #map{
     width: 100%;
     height: 300px;
+  }
+
+  .marker{
+    // background-image: url('../assets/logo_programmo_casa_grande.png');
+    // background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    width: 35px;
+    height: 35px;
   }
 </style>
