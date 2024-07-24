@@ -10,7 +10,7 @@
       <form class="" role="search" @submit.prevent="advancedSearch"> 
         
         <input v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
-        <ul v-if="zone" class="suggestions list-unstyled">
+        <ul v-if="suggestions" class="suggestions list-unstyled">
           <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
             {{ suggestion.address.freeformAddress }}
           </li>
@@ -73,7 +73,7 @@
         zone:'',
         apartmentsResearch: '',
         suggestion:'',
-        suggestions: [],
+        suggestions: '',
         errorSearch: '',
         // i set the datas used to calculate the bounds
         latitude: 0,
@@ -221,7 +221,7 @@
       search: _.debounce(async function() {
 
       if (!this.zone) {
-        this.suggestions = []
+        this.suggestions = ''
         return
       }
 
@@ -278,15 +278,7 @@
 
 <style lang="scss" scoped>
 
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: black;
- /* Colore desiderato */ cursor: pointer; }
- /* Per Firefox */ 
-input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: black; 
- /* Colore desiderato */ cursor: pointer; } 
- /* Per Internet Explorer */ 
-input[type="range"]::-ms-thumb { width: 20px; height: 20px; border-radius: 50%; background: black; 
- /* Colore desiderato */ cursor: pointer; }
- .container{
-  margin-top: 60px;
- }
+@use '../style/partials/advanced-search.scss';
+
+
 </style>
