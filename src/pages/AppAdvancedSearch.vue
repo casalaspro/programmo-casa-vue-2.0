@@ -47,8 +47,8 @@
     <AppMap :apartmentsResearch="apartmentsResearch"/>
   </div> 
   <div class="container">
-    <div class="row">
-      <div class="col-3" v-for="apartment in apartmentsResearch" :key="apartment.id"> 
+    <div class="row gy-2 gx-2 flex-wrap row-cols-1 row-cols-md-2 row-cols-lg-3">
+      <div class="col" v-for="apartment in apartmentsResearch" :key="apartment.id"> 
         <AppApartmentCard :apartment="apartment"/>
       </div>
     </div>
