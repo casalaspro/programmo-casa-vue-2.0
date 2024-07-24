@@ -8,7 +8,7 @@
         <form class="d-flex" role="search" @submit.prevent="searchForZone"> 
           <div class="col me-2">
             <input v-model="zone" class="form-control" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
-            <ul v-if="zone" class="suggestions list-unstyled">
+            <ul v-if="suggestions" class="suggestions list-unstyled">
               <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
                 {{ suggestion.address.freeformAddress }}
               </li>
@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       zone:'',
-      suggestions:[],
+      suggestions: '',
       apartments: [],
       currentPage: 1,
       lastPage: null,
