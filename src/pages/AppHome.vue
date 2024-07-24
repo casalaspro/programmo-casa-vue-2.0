@@ -24,11 +24,11 @@
   
     <!-- MOSTRIAMO GLI APPARTAMENTI IN EVIDENZA -->
    <div class="container">
-    <div class="my_section-title my-5">
-      <div class="line mx-5"></div>
-      <h1 class="text-2xl my-8 text-center mb-3 my_title">In Evidenza</h1>
+      <div class="my_section-title my-5">
+        <div class="line mx-5"></div>
+        <h1 class="text-2xl my-8 text-center mb-3 my_title">In Evidenza</h1>
+      </div>
     </div>
-   </div>
     <section class="section-carousel mt-3 mb-3 text-center">
     
       <!-- row gy-3 gx-3 row-cols-1 row-cols-md-2 row-cols-lg-3 -->
