@@ -48,7 +48,7 @@
   </div> 
   <div class="container">
     <div class="row">
-      <div class="col-3" v-for="apartment in apartmentsResearch"> 
+      <div class="col-3" v-for="apartment in apartmentsResearch" :key="apartment.id"> 
         <AppApartmentCard :apartment="apartment"/>
       </div>
     </div>
@@ -164,11 +164,6 @@
         }
       },
       advancedSearch(){
-        // let data=[1,2,3,4,5];
-        // let json=JSON.stringify(data);
-        // let post_data={json_data:json}
-        // axios.post('/url',post_data)
-        this.apartmentsResearch = ""
         
         if (this.latitude !== ''){
           this.errorSearch = ''
@@ -224,6 +219,7 @@
         })
       },
       search: _.debounce(async function() {
+
       if (!this.zone) {
         this.suggestions = []
         return
@@ -258,9 +254,6 @@
       // this.advancedSearch()
 
       this.fetchServices()
-
-      // this.latitude = el.position.lat
-      // this.longitude = el.position.lon
 
       axios.get('http://127.0.0.1:8000/api/search',{
         params: {
