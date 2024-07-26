@@ -77,22 +77,22 @@
       <!-- Right -->
       <div>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-facebook-f"></i>
+          <font-awesome-icon :icon="['fab', 'facebook']" />
         </a>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-twitter"></i>
+          <font-awesome-icon :icon="['fab', 'twitter']" />
         </a>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-google"></i>
+          <font-awesome-icon :icon="['fab', 'google']" />
         </a>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-instagram"></i>
+          <font-awesome-icon :icon="['fab', 'instagram']" />
         </a>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-linkedin"></i>
+          <font-awesome-icon :icon="['fab', 'linkedin']" />
         </a>
         <a href="" class="me-4 text-reset">
-          <i class="fab fa-github"></i>
+          <font-awesome-icon :icon="['fab', 'github']" />
         </a>
       </div>
       <!-- Right -->
