@@ -1,10 +1,13 @@
 <script>
 // import { defineAsyncComponent } from 'vue';
 import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+
 
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   },
   data() {
     return {
@@ -17,6 +20,7 @@ export default {
 <template>
   <AppHeader />
   <RouterView />
+  <AppFooter />
 </template>
 
 <style lang="scss">
