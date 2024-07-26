@@ -9,7 +9,8 @@
       </div>
       <form class="" role="search" @submit.prevent="advancedSearch"> 
         
-        <input v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+        <input ref="inputZoneListen" v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+        <div ref="loading" class="loading"><img src="/src/assets/Spinner-2.gif" alt=""></div>
         <ul v-if="suggestions" class="suggestions list-unstyled">
           <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
             {{ suggestion.address.freeformAddress }}
@@ -123,6 +124,13 @@
         this.bounds.lonMin = lonMin;
         this.bounds.lonMax = lonMax;
       },
+      loading(){
+      if(this.zone !== ''){
+          this.$refs.loading.style.display = 'block'
+        }else{
+          this.$refs.loading.style.display = 'none'
+        }
+      },
 
       // -----------------------------------------------------
       calculateRoomsAndBeds(){
@@ -229,6 +237,7 @@
         const response = await axios.get(`http://127.0.0.1:8000/api/suggestions?parametro=${this.zone}`)
         this.suggestions = response.data.response.results
         console.log(response.data.response.results)
+        this.$refs.loading.style.display = 'none'
       } catch (error) {
         console.error(error)
       }
@@ -248,6 +257,7 @@
     },
     mounted(){
       // this.zone = sessionStorage.getItem('zone')
+      this.$refs.inputZoneListen.addEventListener('keyup', this.loading)
       this.latitude = parseFloat(sessionStorage.getItem('latitude'))
       this.longitude = parseFloat(sessionStorage.getItem('longitude'))
       this.calculateLimitsLatLon()
