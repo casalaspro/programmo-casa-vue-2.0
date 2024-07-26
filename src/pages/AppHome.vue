@@ -7,7 +7,9 @@
         </div>
         <form class="d-flex" role="search" @submit.prevent="searchForZone"> 
           <div class="col me-2">
-            <input v-model="zone" class="form-control" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+            <input ref="inputZoneListen" v-model="zone" class="form-control" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+            <div ref="loading" class="loading"><img src="/src/assets/Spinner-2.gif" alt=""></div>
+            <!-- :class="zone !== '' ? 'd-block' : 'd-none'" -->
             <ul v-if="suggestions" class="suggestions list-unstyled">
               <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
                 {{ suggestion.address.freeformAddress }}
@@ -108,15 +110,25 @@ export default {
       currentPage: 1,
       lastPage: null,
       count: 0,
-      errorSearch: ''
+      errorSearch: '',
     }
   },
   components:{
     AppApartmentCard,
     AppApartmentCardSponsored
   },
+  watch:{
+   
+  },
   methods: {
     bringMeToApartment(id, titleApartment, rooms, beds, bathrooms, sqrMeters, imgApartment, description, latitude, longitude, completeAddress){
+    },
+    loading(){
+      if(this.zone !== ''){
+          this.$refs.loading.style.display = 'block'
+        }else{
+          this.$refs.loading.style.display = 'none'
+        }
     },
     changePage(page) {
       if (page === this.currentPage) return
@@ -132,6 +144,7 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/suggestions?parametro=${this.zone}`)
         this.suggestions = response.data.response.results
+        this.$refs.loading.style.display = 'none'
         console.log(response.data.response.results)
       } catch (error) {
         console.error(error)
@@ -173,7 +186,6 @@ export default {
 
       sessionStorage.setItem('latitude', el.position.lat);
       sessionStorage.setItem('longitude', el.position.lon);
-      
     },
     scrollCarousel(e) {
       e.preventDefault();
@@ -187,6 +199,7 @@ export default {
   },
   mounted(){
     this.$refs.carousel.addEventListener('wheel', this.scrollCarousel);
+    this.$refs.inputZoneListen.addEventListener('keyup', this.loading)
   },  
   beforeMount(){
     // this.$refs.carousel.removeEventListener('wheel', this.scrollCarousel);
