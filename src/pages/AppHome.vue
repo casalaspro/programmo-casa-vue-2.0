@@ -21,6 +21,8 @@
         
       </div>
     </div>
+
+    <!-- <p>My date: {{ new Date() }}</p> -->
   
     <!-- MOSTRIAMO GLI APPARTAMENTI IN EVIDENZA -->
    <div class="container">
@@ -34,7 +36,10 @@
       <!-- row gy-3 gx-3 row-cols-1 row-cols-md-2 row-cols-lg-3 -->
       <div class="carousel" ref="carousel">
         <template v-for="apartment in apartments">
-          <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-if="apartment.sponsorships.length > 0">
+          <!-- I pick the last sponsorship activated and i check if it is still valid -->
+          <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-if="apartment.sponsorships.length > 0 && new Date(apartment.sponsorships[apartment.sponsorships.length - 1].pivot.end_datetime) > new Date()">
+            <!-- <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-if="apartment.sponsorships[0].pivot.end_datetime > new Date() "></div> -->
+             
           <AppApartmentCardSponsored :apartment="apartment"/>
           </div>
         </template>
@@ -108,7 +113,8 @@ export default {
       currentPage: 1,
       lastPage: null,
       count: 0,
-      errorSearch: ''
+      errorSearch: '',
+      sponsorshipDate: ''
     }
   },
   components:{
@@ -152,7 +158,9 @@ export default {
         .then((res) => {
           this.apartments = res.data.results.data
           this.lastPage = res.data.results.last_page
-          console.log( res.data.results)
+          console.log('Il mio fetch apartments: ', res.data.results);
+          console.log(new Date(res.data.results.data[10].sponsorships[0].pivot.end_datetime));
+          console.log(new Date());
         })
 
     },

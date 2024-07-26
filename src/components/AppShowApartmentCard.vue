@@ -12,6 +12,7 @@
         <p>
           {{apartment.description}}
         </p>
+        <p>{{ apartment }}</p>
       </div>
       <section class="pt-2">
         <div class="container">
