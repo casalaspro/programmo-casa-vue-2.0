@@ -19,21 +19,21 @@
       <section class="pt-2">
         <div class="container">
           <div class="row align-items-center">
-            <div v-for="detail in details" class="col-6 col-sm-2 col-md-auto">
-              <div class="row flex-nowrap align-items-center">
-                <div class="col-auto my-col-auto">
-                  <div class="flex-column">
-                    <div class="col-auto  text-center ">
-                    <img class="icon-service" :src="'/src/assets/info/' + detail.pathImg" alt="">
-                    </div>
-                    <div class="col-auto  my-name-icon text-center">{{ detail.name }}</div>
+            <template v-for="detail in details">
+              <div class="col-6 col-sm-3 col-md-3 col-lg-auto">
+                <div class="flex-column flex-nowrap align-items-center">
+                  <div class="col-auto my-col-auto">
+                      <div class="col-auto  text-center ">
+                      <img class="icon-service" :src="'/src/assets/info/' + detail.pathImg" alt="">
+                      </div>
+                      <div class="col-auto  my-name-icon text-center">{{ detail.name }}</div>
                   </div>
                 </div>
-                <div class="col-auto">
-                  {{detail.value}}
-                </div>
               </div>
-            </div>
+              <div class="col-6 col-sm-3 col-md-3 col-lg-auto">
+                {{detail.value}}
+              </div>
+            </template>
           </div> 
         </div>
       </section>
