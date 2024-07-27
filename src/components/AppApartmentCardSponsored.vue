@@ -8,6 +8,7 @@
         <div class="my_card-title">
           <div class="my_title">
             <h4>{{ apartment.title_apartment }}</h4>
+            <p>{{}}</p>
           </div>
           <div class="my-shadow"></div>
         </div>

@@ -46,11 +46,21 @@
     </div>
     <hr>
     <AppMap :apartmentsResearch="apartmentsResearch"/>
-  </div> 
-  <div class="container">
-    <div class="row gy-2 gx-2 flex-wrap row-cols-1 row-cols-md-2 row-cols-lg-3">
-      <div class="col" v-for="apartment in apartmentsResearch" :key="apartment.id"> 
-        <AppApartmentCard :apartment="apartment"/>
+    <div class="container">
+      <div class="row">
+        <!-- IL CODICE COMMENTATO È DA IMPLEMENTARE -->
+        <!-- <div class="col-12 col-sm-8 col-md-4 col-lg-3" v-if="apartment.sponsorships.length > 0 && new Date(apartment.sponsorships[apartment.sponsorships.length - 1].pivot.end_datetime) > new Date()"></div> -->
+        <!-- <div v-if="lastPage > 1">
+        <ul class="row paginate p-3 justify-content-center list-unstyled">
+          <li :class="page === currentPage ? 'bg-yellow-logo' : ''" class="my-page col-auto border border-dark rounded-circle m-2" v-for="(page, i) in lastPage" @click="changePage(page)">
+            {{ i+1 }}
+          </li>
+        </ul>
+      </div> -->
+
+        <div class="col-3" v-for="apartment in apartmentsResearch"> 
+          <AppApartmentCard :apartment="apartment"/>
+        </div>
       </div>
     </div>
   </div>
