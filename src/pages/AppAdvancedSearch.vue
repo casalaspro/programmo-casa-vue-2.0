@@ -1,70 +1,56 @@
 <template>
-  <div>
-    <div class="container">
+  <div class="container">
 
-      <h1>Ricerca avanzata</h1>
+    <h1>Ricerca avanzata</h1>
 
-      <div>
-        <div class="my-errors text-danger" v-if="errorSearch !== ''">
-          {{ errorSearch }}
-        </div>
-        <form class="d-flex" role="search" @submit.prevent="advancedSearch"> 
-          
-          <input v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
-          <!-- @keyup="fetchSuggestions"  -->
-          <!-- <RouterLink class="nav-link" :to="{ name: 'advanced-search' }"> -->
-          <button class="btn btn-outline-dark" type="submit">Cerca</button>
-          <!-- </RouterLink> -->
-        </form>
-        <ul v-if="zone" class="suggestions list-unstyled">
+    <div>
+      <div class="my-errors text-danger" v-if="errorSearch !== ''">
+        {{ errorSearch }}
+      </div>
+      <form class="" role="search" @submit.prevent="advancedSearch"> 
+        
+        <input ref="inputZoneListen" v-model="zone" class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+        <div ref="loading" class="loading"><img src="/src/assets/Spinner-2.gif" alt=""></div>
+        <ul v-if="suggestions" class="suggestions list-unstyled">
           <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
             {{ suggestion.address.freeformAddress }}
           </li>
         </ul>
-      </div>
-  
-      <div class="services">
-        <button :class="('btn btn-outline-dark me-1 mb-1 service-'+service.id)" @click="toggleService(service.id), buttonToggle(service.id) " v-for="(service, index) in services">{{ service.name }}</button>
-        <!-- <button @click="advancedSearch">Aggiorna</button> -->
-      </div>
-    </div>
-
-    <div class="container search-bar">
-      <form class="form-search-latitude my-3" action="">
-        <!-- <label for="complete_address" class="form-label">Inserisci la latitudine</label>
-        <input v-model.number="latitude" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
-        <label for="complete_address" class="form-label">Inserisci la longitudine</label>
-        <input v-model.number="longitude" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite"> -->
+        
         <label for="complete_address" class="form-label">Inserisci la distanza in Chilometri</label>
-        <input v-model.number="distance" @input="calculateLimitsLatLon" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
+        <input v-model.number="distance" type="number" class="form-control my-input-address" id="complete_address" name="complete_address" placeholder="Inserisci la Via e scegli tra quelle suggerite">
+        
         <label for="customRange1" class="form-label">Inserisci la distanza in Chilometri</label>
-        <input v-model.number="distance" @input="calculateLimitsLatLon" step="5" type="range" class="form-range my-input-address" id="customRange1">
+        <input v-model.number="distance" step="5" type="range" class="form-range my-input-address" id="customRange1">
 
         <label for="number_of_rooms" class="form-lable">Inserisci la quantità di stanze</label>
         <input v-model.number="rooms" min="1" type="number" class="form-control" id="number_of_rooms" name="number_of_rooms" placeholder="inserisci il numero di stanze">
 
         <label for="number_of_beds" class="form-lable">Inserisci il numero di camere da letto</label>
         <input v-model.number="beds" min="1" type="number" class="form-control" id="number_of_beds" name="number_of_beds" placeholder="inserisci il numero di camere da letto">
-
-      </form>
-      <div class="search-bar_solutions">
-        <!-- <h4>Latitudine: </h4><span>{{ latitude }}</span>
-        <h4>Longitudine: </h4><span>{{ longitude }}</span> -->
-        <h4>Distanza: </h4><span>{{ distance }}</span>
-        <!-- <h4>Latitudine Minima: </h4><span>{{ bounds.latMin }}</span>
-        <h4>Latitudine Massima: </h4><span>{{ bounds.latMax }}</span>
-        <h4>Longitudine Minima: </h4><span>{{ bounds.lonMin }}</span>
-        <h4>Longitudine Massima: </h4><span>{{ bounds.lonMax }}</span> -->
-      </div>
-
-      <hr>
-    </div> 
-    <AppMap :apartmentsResearch="apartmentsResearch"/>
-    <div class="container">
-      <div class="row">
-        <div class="col-3" v-for="apartment in apartmentsResearch"> 
-          <AppApartmentCard :apartment="apartment"/>
+        
+        <div class="services pt-3 ">
+          <button :class="('btn btn-outline-dark me-1 mb-1 service-'+service.id)" @click="toggleService(service.id), buttonToggle(service.id) " v-for="(service, index) in services">{{ service.name }}</button>
+          <!-- <button @click="advancedSearch">Aggiorna</button> -->
         </div>
+
+        <button class="btn btn-dark mt-3" type="submit">Cerca</button>
+        <!-- </RouterLink> -->
+      </form>
+    </div>
+  </div>
+
+  <div class="container search-bar">
+    <div class="search-bar_solutions">
+      <h4>Distanza: </h4><span>{{ distance }}</span>
+    </div>
+    <hr>
+    <AppMap :apartmentsResearch="apartmentsResearch"/>
+  </div> 
+  <div class="container">
+    <div class="row gy-2 gx-2 flex-wrap row-cols-1 row-cols-md-2 row-cols-lg-3">
+      <div class="col" v-for="apartment in apartmentsResearch" :key="apartment.id"> 
+        <AppApartmentCard :apartment="apartment"/>
       </div>
     </div>
   </div>
@@ -88,7 +74,7 @@
         zone:'',
         apartmentsResearch: '',
         suggestion:'',
-        suggestions: [],
+        suggestions: '',
         errorSearch: '',
         // i set the datas used to calculate the bounds
         latitude: 0,
@@ -109,6 +95,11 @@
         }
       }
     },
+    // watch:{
+    //   distance(newDistance, oldDistance){
+    //     this.advancedSearch()
+    //   }
+    // },
     methods:{
       // this function takes latitude, longitude, distance in kilometers and calculates the bounds
       calculateLimitsLatLon(){
@@ -132,6 +123,13 @@
         this.bounds.latMax = latMax;
         this.bounds.lonMin = lonMin;
         this.bounds.lonMax = lonMax;
+      },
+      loading(){
+      if(this.zone !== ''){
+          this.$refs.loading.style.display = 'block'
+        }else{
+          this.$refs.loading.style.display = 'none'
+        }
       },
 
       // -----------------------------------------------------
@@ -174,11 +172,7 @@
         }
       },
       advancedSearch(){
-        // let data=[1,2,3,4,5];
-        // let json=JSON.stringify(data);
-        // let post_data={json_data:json}
-        // axios.post('/url',post_data)
-
+        
         if (this.latitude !== ''){
           this.errorSearch = ''
           this.calculateLimitsLatLon()
@@ -233,8 +227,9 @@
         })
       },
       search: _.debounce(async function() {
+
       if (!this.zone) {
-        this.suggestions = []
+        this.suggestions = ''
         return
       }
 
@@ -242,6 +237,7 @@
         const response = await axios.get(`http://127.0.0.1:8000/api/suggestions?parametro=${this.zone}`)
         this.suggestions = response.data.response.results
         console.log(response.data.response.results)
+        this.$refs.loading.style.display = 'none'
       } catch (error) {
         console.error(error)
       }
@@ -261,15 +257,13 @@
     },
     mounted(){
       // this.zone = sessionStorage.getItem('zone')
+      this.$refs.inputZoneListen.addEventListener('keyup', this.loading)
       this.latitude = parseFloat(sessionStorage.getItem('latitude'))
       this.longitude = parseFloat(sessionStorage.getItem('longitude'))
       this.calculateLimitsLatLon()
       // this.advancedSearch()
 
       this.fetchServices()
-
-      // this.latitude = el.position.lat
-      // this.longitude = el.position.lon
 
       axios.get('http://127.0.0.1:8000/api/search',{
         params: {
@@ -293,15 +287,8 @@
 </script>
 
 <style lang="scss" scoped>
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: black;
- /* Colore desiderato */ cursor: pointer; }
- /* Per Firefox */ 
-input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: black; 
- /* Colore desiderato */ cursor: pointer; } 
- /* Per Internet Explorer */ 
-input[type="range"]::-ms-thumb { width: 20px; height: 20px; border-radius: 50%; background: black; 
- /* Colore desiderato */ cursor: pointer; }
- .container{
-  margin-top: 60px;
- }
+
+@use '../style/partials/advanced-search.scss';
+
+
 </style>

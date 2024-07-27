@@ -20,24 +20,6 @@
         this.addMarker()        
       }
     },
-    mounted() {
-
-      let center = [12.4963655, 41.9027835];
-      const milan = [9.1859243, 45.4654219];
-      // const lonLat = [this.apartmentsResearch.longitude, this.apartmentsResearch.latitude]
-      
-      const map = tt.map({
-        key: 'SmzJJ1e9vacLwiqfqgxPWAvQ7Ey33PfG',
-        container: 'map',
-        center: center,
-        zoom: 2,
-      });
-
-      map.on('load', () => {
-        new tt.Marker().setLngLat(center).addTo(map);
-        new tt.Marker().setLngLat(milan).addTo(map);
-      });
-    },
     methods:{
       addMarker(){
         const center = [this.apartmentsResearch[0].longitude, this.apartmentsResearch[0].latitude]
@@ -53,14 +35,14 @@
 
         var popupOffsets = {
           'top': [0, 0],
-            'top-left': [0,0],
-            'top-right': [0,0],
-            'bottom': [0, -markerHeight],
-            'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-            'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-            'left': [markerRadius, (markerHeight - markerRadius) * -1],
-            'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-          };
+          'top-left': [0,0],
+          'top-right': [0,0],
+          'bottom': [0, -markerHeight],
+          'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'left': [markerRadius, (markerHeight - markerRadius) * -1],
+          'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+        };
 
         this.apartmentsResearch.forEach(element => {
           const lonLat = [element.longitude, element.latitude];
@@ -79,14 +61,20 @@
           // });
 
           marker.getElement().addEventListener('click', ()=>{
-            this.$router.push(`apartments/${element.id}`);
+            this.$router.push({ name: 'apartment.show', params: { id: element.id } });
           })
 
           let Popup = null;
           marker.getElement().addEventListener('mouseenter', () => {
             Popup = new tt.Popup({ offset: popupOffsets, className: 'my-class' })
               .setLngLat(lonLat)
-              .setHTML(element.title_apartment)
+              // .setHTML(element.title_apartment)
+              .setHTML(`
+                <div>
+                  <h5>${element.title_apartment}</h5>  
+                  <img src="http://127.0.0.1:8000/storage/${element.img_apartment}">
+                </div>
+              `)
               .addTo(map);
           });
 
@@ -102,24 +90,5 @@
 </script>
 
 <style lang="scss">
-  #map{
-    width: 100%;
-    height: 300px;
-  }
-
-  .marker{
-    // background-image: url('../assets/logo_programmo_casa_grande.png');
-    // background-color: black;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 0.5px;
-    width: 50px;
-
-    & img{
-      border-radius: 20px;
-      width: 100%;
-    }
-  }
-
-  
+  @use '../style/partials/map.scss';
 </style>

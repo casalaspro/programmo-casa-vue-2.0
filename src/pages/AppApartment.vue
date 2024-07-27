@@ -27,7 +27,10 @@ export default {
   },
   data() {
     return {
-      apartment: null
+      apartment: null,
+      views: 0,
+      clientIp: '',
+      addressesIp:[]
     }
   },
   methods: {
@@ -47,6 +50,24 @@ export default {
   },
   components:{
     AppShowApartmentCard
+  },
+  mounted(){
+      fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(({ ip }) => {
+        this.clientIp = ip;
+        console.log(this.clientIp)
+
+        if(!this.addressesIp.includes(ip)){
+          console.log('non lo include')
+          console.log(this.addressesIp)
+        }else{
+          console.log('lo include')
+        }
+        
+        this.addressesIp.push(ip)
+        console.log('addressIp ',this.addressesIp)
+      });
   },
   created() {
     this.fetchApartment()

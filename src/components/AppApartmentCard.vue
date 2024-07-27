@@ -1,7 +1,7 @@
 <template>
-    <div class="card h-100 text-center">
-      <!-- mostriamo gli appartamenti in evidenza -->
-      <RouterLink :to="{ name: 'apartment.show', params: {id: apartment.id} }">
+  <div class="card h-100 text-center">
+    <!-- mostriamo gli appartamenti in evidenza -->
+    <RouterLink :to="{ name: 'apartment.show', params: {id: apartment.id} }">
       <div class="card-body my_card-body">
         <img :src="'http://127.0.0.1:8000/storage/' + apartment.img_apartment" class="card-img-top img_card" alt="">
 
@@ -13,7 +13,7 @@
         </div>
       </div>
     </RouterLink>
-    </div>
+  </div>
 </template>
 
 <script>

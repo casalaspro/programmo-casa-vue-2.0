@@ -7,8 +7,10 @@
         </div>
         <form class="d-flex" role="search" @submit.prevent="searchForZone"> 
           <div class="col me-2">
-            <input v-model="zone" class="form-control" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
-            <ul v-if="zone" class="suggestions list-unstyled">
+            <input ref="inputZoneListen" v-model="zone" class="form-control" type="search" placeholder="Cerca" aria-label="Search" @keyup="search">
+            <div ref="loading" class="loading"><img src="/src/assets/Spinner-2.gif" alt=""></div>
+            <!-- :class="zone !== '' ? 'd-block' : 'd-none'" -->
+            <ul v-if="suggestions" class="suggestions list-unstyled">
               <li v-for="(suggestion, i) in suggestions" class="suggestion" @click="selectSuggestion(suggestion)">
                 {{ suggestion.address.freeformAddress }}
               </li>
@@ -24,11 +26,11 @@
   
     <!-- MOSTRIAMO GLI APPARTAMENTI IN EVIDENZA -->
    <div class="container">
-    <div class="my_section-title my-5">
-      <div class="line mx-5"></div>
-      <h1 class="text-2xl my-8 text-center mb-3 my_title">In Evidenza</h1>
+      <div class="my_section-title my-5">
+        <div class="line mx-5"></div>
+        <h1 class="text-2xl my-8 text-center mb-3 my_title">In Evidenza</h1>
+      </div>
     </div>
-   </div>
     <section class="section-carousel mt-3 mb-3 text-center">
     
       <!-- row gy-3 gx-3 row-cols-1 row-cols-md-2 row-cols-lg-3 -->
@@ -103,20 +105,30 @@ export default {
   data() {
     return {
       zone:'',
-      suggestions:[],
+      suggestions: '',
       apartments: [],
       currentPage: 1,
       lastPage: null,
       count: 0,
-      errorSearch: ''
+      errorSearch: '',
     }
   },
   components:{
     AppApartmentCard,
     AppApartmentCardSponsored
   },
+  watch:{
+   
+  },
   methods: {
     bringMeToApartment(id, titleApartment, rooms, beds, bathrooms, sqrMeters, imgApartment, description, latitude, longitude, completeAddress){
+    },
+    loading(){
+      if(this.zone !== ''){
+          this.$refs.loading.style.display = 'block'
+        }else{
+          this.$refs.loading.style.display = 'none'
+        }
     },
     changePage(page) {
       if (page === this.currentPage) return
@@ -132,6 +144,7 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/suggestions?parametro=${this.zone}`)
         this.suggestions = response.data.response.results
+        this.$refs.loading.style.display = 'none'
         console.log(response.data.response.results)
       } catch (error) {
         console.error(error)
@@ -173,7 +186,6 @@ export default {
 
       sessionStorage.setItem('latitude', el.position.lat);
       sessionStorage.setItem('longitude', el.position.lon);
-      
     },
     scrollCarousel(e) {
       e.preventDefault();
@@ -187,6 +199,7 @@ export default {
   },
   mounted(){
     this.$refs.carousel.addEventListener('wheel', this.scrollCarousel);
+    this.$refs.inputZoneListen.addEventListener('keyup', this.loading)
   },  
   beforeMount(){
     // this.$refs.carousel.removeEventListener('wheel', this.scrollCarousel);

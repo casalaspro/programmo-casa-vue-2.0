@@ -1,15 +1,9 @@
-// .my-card-apartment{
-
-//   img{
-//     object-fit: cover;
-//     height: 200px;
-//   }
-// }
 
 a{
   text-decoration: none;
   color: currentColor
-};
+}
+
 .img_card{
   height: 300px;
   object-fit: cover;
@@ -19,6 +13,7 @@ a{
   border-bottom-left-radius: var(--bs-card-inner-border-radius);
   border-bottom-right-radius: var(--bs-card-inner-border-radius);
 }
+
 .my_card-title{
     position: absolute;
     top: 20px;
@@ -29,6 +24,7 @@ a{
     flex-direction: column;
     text-transform: capitalize; 
 }
+
 .my-shadow{
   height: 10px;
   background-color: black;
@@ -39,6 +35,7 @@ a{
   left: 0;
   right: 0;
 }
+
 .my_card-body{
   padding: 0;
   position: relative;

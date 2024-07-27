@@ -3,7 +3,7 @@
     <img :src="'http://127.0.0.1:8000/storage/' + apartment.img_apartment" class="card-img-top" alt="">
     <div class="card-body">
       <div class="my-contact mb-3">
-        <router-link :to="{name: 'messages', params: {id: apartment_id}}" class="btn btn-dark">Contatta il proprietario</router-link>
+        <router-link :to="{name: 'messages', params: {id: apartment.id}}" class="btn btn-dark">Contatta il proprietario</router-link>
       </div>
       <h3 class="card-title">
         {{ apartment.title_apartment }}
@@ -12,25 +12,28 @@
         <p>
           {{apartment.description}}
         </p>
+        <p>
+          {{ apartment.complete_address }}
+        </p>
       </div>
       <section class="pt-2">
         <div class="container">
           <div class="row align-items-center">
-            <div v-for="detail in details" class="col-6 col-sm-2 col-md-auto">
-              <div class="row flex-nowrap align-items-center">
-                <div class="col-auto my-col-auto">
-                  <div class="flex-column">
-                    <div class="col-auto  text-center ">
-                    <img class="icon-service" :src="'/public/img/info/' + detail.pathImg" alt="">
-                    </div>
-                    <div class="col-auto  my-name-icon text-center">{{ detail.name }}</div>
+            <template v-for="detail in details">
+              <div class="col-6 col-sm-3 col-md-3 col-lg-auto">
+                <div class="flex-column flex-nowrap align-items-center">
+                  <div class="col-auto my-col-auto">
+                      <div class="col-auto  text-center ">
+                      <img class="icon-service" :src="'/src/assets/info/' + detail.pathImg" alt="">
+                      </div>
+                      <div class="col-auto  my-name-icon text-center">{{ detail.name }}</div>
                   </div>
                 </div>
-                <div class="col-auto">
-                  {{detail.value}}
-                </div>
               </div>
-            </div>
+              <div class="col-6 col-sm-3 col-md-3 col-lg-auto">
+                {{detail.value}}
+              </div>
+            </template>
           </div> 
         </div>
       </section>
@@ -40,7 +43,7 @@
             <div v-for="service in apartment.services" class="col-6 col-sm-2 my-col-auto">
               <div class="flex-column">
                 <div class="col-auto my-col-auto text-center ">
-                <img class="icon-service" :src="'/public/img/servizi/Risorsa '+ service.id +'.svg'" alt="">
+                <img class="icon-service" :src="'/src/assets/servizi/Risorsa '+ service.id +'.svg'" alt="">
                 </div>
                 <div class="col-auto my-col-auto my-name-icon text-center">{{ service.name }}</div>
               </div>
@@ -82,6 +85,9 @@
           value: this.apartment.sqr_meters
         }]
       }
+    },
+    created(){
+      console.log('cardshow'+ this.apartment)
     }
   }
 </script>
