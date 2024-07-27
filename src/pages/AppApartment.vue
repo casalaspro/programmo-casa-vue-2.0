@@ -28,10 +28,21 @@ export default {
   data() {
     return {
       apartment: null,
-      views: 0,
       clientIp: '',
-      addressesIp:[]
+      views: ''
     }
+  },
+  watch:{
+    apartment(newApartment, oldApartment){
+      console.log('watch apartment ', this.apartment)
+    },
+
+    clientIp(newClientIp, oldClientIp){
+      console.log('watch ip ', this.clientIp)
+      this.addView()
+      this.showViews()
+    }
+
   },
   methods: {
     fetchApartment(){
@@ -46,32 +57,49 @@ export default {
           params: { pathMatch: this.$route.path.substring(1).split('/') },
         })
       })
-    }
+    },
+    addView(){
+      let data = {
+        ip: this.clientIp,
+        apartmentId: this.id
+      }
+
+      console.log('data ',data)
+      console.log('ip in data',this.clientIp)
+      console.log('id in data',this.apartment.id)
+
+      axios.post('http://127.0.0.1:8000/api/views/', data)
+      .then(res => {
+        console.log('res views', res)
+      })
+    },
+    // showViews(){
+    //   let data = {
+    //     apartmentId: this.id
+    //   }
+
+    //   axios.post('http://127.0.0.1:8000/api/show/views/', data)
+    //     .then(res => {
+    //       console.log('res visualizzazioni', res.data)
+    //       this.views = res.data
+    //     })
+    // }
   },
   components:{
     AppShowApartmentCard
   },
   mounted(){
-      fetch('https://api.ipify.org?format=json')
+    fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(({ ip }) => {
-        this.clientIp = ip;
-        console.log(this.clientIp)
-
-        if(!this.addressesIp.includes(ip)){
-          console.log('non lo include')
-          console.log(this.addressesIp)
-        }else{
-          console.log('lo include')
-        }
         
-        this.addressesIp.push(ip)
-        console.log('addressIp ',this.addressesIp)
+        this.clientIp = ip;
       });
   },
   created() {
     this.fetchApartment()
-    console.log(this.id);
+    // console.log(this.id)
+    
   }
 }
 </script>

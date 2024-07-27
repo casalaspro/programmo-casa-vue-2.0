@@ -2,8 +2,14 @@
   <div class="card">
     <img :src="'http://127.0.0.1:8000/storage/' + apartment.img_apartment" class="card-img-top" alt="">
     <div class="card-body">
-      <div class="my-contact mb-3">
-        <router-link :to="{name: 'messages', params: {id: apartment.id}}" class="btn btn-dark">Contatta il proprietario</router-link>
+      <div class="row my-contact mb-3 justify-content-between align-items-center">
+        <div class="col-auto">
+          <router-link :to="{name: 'messages', params: {id: apartment.id}}" class="btn btn-dark">Contatta il proprietario</router-link>
+        </div>                
+        <div class="col-auto">
+          <font-awesome-icon :icon="['fas', 'eye']" />
+          <span class="px-2">{{ views }}</span>
+        </div>
       </div>
       <h3 class="card-title">
         {{ apartment.title_apartment }}
@@ -56,6 +62,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     props:{
       apartment:{
@@ -65,6 +72,7 @@
     data(){
       return{
         dataApartment:[],
+        views:'',
         details: [{
           name: 'Stanze',
           pathImg: 'info_rooms.svg',
@@ -86,8 +94,22 @@
         }]
       }
     },
+    methods:{
+      showViews(){
+        let data = {
+          apartmentId: this.apartment.id
+        }
+
+        axios.post('http://127.0.0.1:8000/api/show/views/', data)
+          .then(res => {
+            console.log('res visualizzazioni', res.data)
+            this.views = res.data
+          })
+      }
+    },
     created(){
       console.log('cardshow'+ this.apartment)
+      this.showViews()
     }
   }
 </script>

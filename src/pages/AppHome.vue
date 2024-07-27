@@ -171,9 +171,9 @@ export default {
         .then((res) => {
           this.apartments = res.data.results.data
           this.lastPage = res.data.results.last_page
-          console.log('Il mio fetch apartments: ', res.data.results);
-          console.log(new Date(res.data.results.data[10].sponsorships[0].pivot.end_datetime));
-          console.log(new Date());
+          // console.log('Il mio fetch apartments: ', res.data.results);
+          // console.log(new Date(res.data.results.data[10].sponsorships[0].pivot.end_datetime));
+          // console.log(new Date());
         })
 
     },
