@@ -86,6 +86,7 @@
         suggestion:'',
         suggestions: '',
         errorSearch: '',
+        currentPage: 1,
         // i set the datas used to calculate the bounds
         latitude: 0,
         longitude: 0,
@@ -195,7 +196,8 @@
             max_lon: this.bounds.lonMax,
             activeFilters: this.activeFilters,
             roomsNumber: this.rooms,
-            bedsNumber: this.beds 
+            bedsNumber: this.beds,
+            page: this.currentPage
           }
           // let json = JSON.stringify(data);
           // let post_data = { json_data: json }
